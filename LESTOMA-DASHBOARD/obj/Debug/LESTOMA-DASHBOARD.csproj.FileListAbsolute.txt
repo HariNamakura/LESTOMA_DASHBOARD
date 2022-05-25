@@ -1,0 +1,10 @@
+C:\Users\nelso\Documents\UDEC\Semillero\LESTOMA-DASHBOARD\LESTOMA-DASHBOARD\bin\Debug\LESTOMA-DASHBOARD.exe.config
+C:\Users\nelso\Documents\UDEC\Semillero\LESTOMA-DASHBOARD\LESTOMA-DASHBOARD\bin\Debug\LESTOMA-DASHBOARD.exe
+C:\Users\nelso\Documents\UDEC\Semillero\LESTOMA-DASHBOARD\LESTOMA-DASHBOARD\bin\Debug\LESTOMA-DASHBOARD.pdb
+C:\Users\nelso\Documents\UDEC\Semillero\LESTOMA-DASHBOARD\LESTOMA-DASHBOARD\obj\Debug\LESTOMA-DASHBOARD.csproj.AssemblyReference.cache
+C:\Users\nelso\Documents\UDEC\Semillero\LESTOMA-DASHBOARD\LESTOMA-DASHBOARD\obj\Debug\LESTOMA_DASHBOARD.Form1.resources
+C:\Users\nelso\Documents\UDEC\Semillero\LESTOMA-DASHBOARD\LESTOMA-DASHBOARD\obj\Debug\LESTOMA_DASHBOARD.Properties.Resources.resources
+C:\Users\nelso\Documents\UDEC\Semillero\LESTOMA-DASHBOARD\LESTOMA-DASHBOARD\obj\Debug\LESTOMA-DASHBOARD.csproj.GenerateResource.cache
+C:\Users\nelso\Documents\UDEC\Semillero\LESTOMA-DASHBOARD\LESTOMA-DASHBOARD\obj\Debug\LESTOMA-DASHBOARD.csproj.CoreCompileInputs.cache
+C:\Users\nelso\Documents\UDEC\Semillero\LESTOMA-DASHBOARD\LESTOMA-DASHBOARD\obj\Debug\LESTOMA-DASHBOARD.exe
+C:\Users\nelso\Documents\UDEC\Semillero\LESTOMA-DASHBOARD\LESTOMA-DASHBOARD\obj\Debug\LESTOMA-DASHBOARD.pdb
