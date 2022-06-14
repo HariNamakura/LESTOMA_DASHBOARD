@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,13 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Threading;
 
 namespace LESTOMA_DASHBOARD
 {
     public partial class Form1 : Form
     {
-        Double temperature = 0,humidity = 0,windspeed = 0,winddirection = 0,rainfall = 0;
+        double temperature = 0,humidity = 0,windspeed = 0,winddirection = 0,rainfall = 0;
         bool updateData = false;
+        string dataIn;
+        int time = 10000;
         public Form1()
         {
             InitializeComponent();
@@ -77,7 +80,7 @@ namespace LESTOMA_DASHBOARD
             chartWindDir.Series["WindDirection"].Points.AddXY(1, 1);
             chartRain.Series["Rainfall"].Points.AddXY(1, 1);
         }
-
+        // listrade puertos
         private void comboBox_PortList_DropDown(object sender, EventArgs e)
         {
             string[] portList = SerialPort.GetPortNames();
@@ -112,6 +115,11 @@ namespace LESTOMA_DASHBOARD
             }
         }
 
+        private void showthething_Click(object sender, EventArgs e)
+        {
+        
+        }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
             try
@@ -131,11 +139,99 @@ namespace LESTOMA_DASHBOARD
             }
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ShowSeparated_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            string dataIn = serialPort1.ReadTo("\n");
-            Data_Parsing(dataIn);
-            this.BeginInvoke(new EventHandler(Show_Data));
+            
+            dataIn = serialPort1.ReadTo("\n");
+                 
+
+            this.Invoke(new EventHandler(ShowData));
+            // Data_Parsing(dataIn);
+             this.BeginInvoke(new EventHandler(Show_Data));
+        }
+
+        private void ShowData(object sender, EventArgs e)
+        {
+            
+            var string_arr = dataIn.Split('|');
+           
+            var string_byte = string_arr[1].Split('-');
+            Array.Reverse(string_byte);
+
+            for(int i = 0; i < 4; i++)
+            {
+                string cosa=string_byte[i].ToString();
+                lbl2.Text = cosa;
+            }
+            
+            string sens1 = string_byte[0].ToString() + string_byte[1].ToString() + string_byte[2].ToString() + string_byte[3].ToString() ; 
+            uint nu = uint.Parse(sens1, System.Globalization.NumberStyles.AllowHexSpecifier);
+            lbl1.Text = sens1.ToString();
+
+            
+            byte[] ba = BitConverter.GetBytes(nu);
+            float tmp = BitConverter.ToSingle(ba,0);
+            decimal temp = new decimal (tmp);
+            temperature = (double)temp;
+            /*
+
+            var string_byte2 = string_arr[2].Split('-');
+            Array.Reverse(string_byte2);
+            string sens2 = string_byte2[0].ToString() + string_byte2[1].ToString() + string_byte2[2].ToString() + string_byte2[3].ToString() + string_byte2[4].ToString();
+            lbl1.Text = sens2.ToString();
+            /*
+            uint nu2 = uint.Parse(sens2, System.Globalization.NumberStyles.AllowHexSpecifier);
+            byte[] ba2 = BitConverter.GetBytes(nu2);
+            float hum = BitConverter.ToSingle(ba2, 0);
+            decimal humi = new decimal(hum);
+            humidity = (double)humi;
+
+            string[] string_byte3 = string_arr[3].Split('-');
+            Array.Reverse(string_byte3);
+            string sens3 = string_byte3[0].ToString() + string_byte3[1].ToString() + string_byte3[2].ToString() + string_byte3[3].ToString() + string_byte3[4].ToString();
+            lbl1.Text = sens3.ToString();
+
+            /*
+            uint nu3 = uint.Parse(sens3, System.Globalization.NumberStyles.AllowHexSpecifier);
+            byte[] ba3 = BitConverter.GetBytes(nu3);
+            float winds = BitConverter.ToSingle(ba3, 0);
+            decimal windsp = new decimal(winds);
+            windspeed = (double)windsp;
+            
+
+            var string_byte4 = string_arr[4].Split('-');
+            Array.Reverse(string_byte4);
+            string sens4 = string_byte4[0].ToString() + string_byte4[1].ToString() + string_byte4[2].ToString() + string_byte4[3].ToString() + string_byte4[4].ToString();
+            lbl1.Text = sens4.ToString();
+            /*
+            uint nu4 = uint.Parse(sens4, System.Globalization.NumberStyles.AllowHexSpecifier);
+            byte[] ba4 = BitConverter.GetBytes(nu4);
+            float windd = BitConverter.ToSingle(ba4, 0);
+            decimal winddir = new decimal(windd);
+            winddirection = (double)winddir;
+            
+            var string_byte5 = string_arr[5].Split('-');
+            Array.Reverse(string_byte5);
+            string sens5 = string_byte5[0].ToString() + string_byte5[1].ToString() + string_byte5[2].ToString() + string_byte5[3].ToString() + string_byte5[4].ToString();
+            lbl1.Text = sens5.ToString();
+
+            /*uint nu5 = uint.Parse(sens5, System.Globalization.NumberStyles.AllowHexSpecifier);
+            byte[] ba5 = BitConverter.GetBytes(nu5);
+            float rnf = BitConverter.ToSingle(ba5, 0);
+            decimal rainfa = new decimal(rnf);
+            rainfall = (double)rainfa; */
+
+            updateData = true;
         }
 
         private void Show_Data(object sender, EventArgs e)
@@ -181,15 +277,15 @@ namespace LESTOMA_DASHBOARD
                 try
                 {
                     string str_temperature = data.Substring(indexOf_StartDataCharacter + 1, (indexOfA - indexOf_StartDataCharacter) - 1);
-                    temperature = Convert.ToDouble(str_temperature);
+                    //temperature = Convert.ToDouble(str_temperature);
                     string str_Humidity = data.Substring(indexOfA + 1, (indexOfB - indexOfA) - 1);
-                    humidity = Convert.ToDouble(str_Humidity);
+                    //humidity = Convert.ToDouble(str_Humidity);
                     string str_WindSpeed = data.Substring(indexOfB + 1, (indexOfC - indexOfB) - 1);
-                    windspeed = Convert.ToDouble(str_WindSpeed);
+                    //windspeed = Convert.ToDouble(str_WindSpeed);
                     string str_WindDirection = data.Substring(indexOfC + 1, (indexOfD - indexOfC) - 1);
-                    winddirection = Convert.ToDouble(str_WindDirection);
+                    //winddirection = Convert.ToDouble(str_WindDirection);
                     string str_Rainfall = data.Substring(indexOfD + 1, (indexOfE - indexOfD) - 1);
-                    rainfall = Convert.ToDouble(str_Rainfall);
+                    //rainfall = Convert.ToDouble(str_Rainfall);
 
                     updateData = true;
                 }
